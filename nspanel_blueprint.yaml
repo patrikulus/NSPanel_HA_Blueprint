@@ -1390,8 +1390,10 @@ variables:
   #### HARDWARE BUTTONS #####
   left_button_entity: !input "left_button_entity"
   left_button_name: !input "left_button_name"
+  left_relay_button_control: "switch.{{ nspanel_name }}_left_relay_button_control"
   right_button_entity: !input "right_button_entity"
   right_button_name: !input "right_button_name"
+  right_relay_button_control: "switch.{{ nspanel_name }}_right_relay_button_control"
 
   ##### NEXTION PIC MAPPING #####
   button_light_off: "62"
@@ -4046,6 +4048,7 @@ action:
       - conditions:
           - condition: trigger
             id: left_button_press
+          - "{{ is_state('left_relay_button_control', 'off') }}"
         sequence:
           - service: >-
               {% if left_button_entity is match 'light.' %}
@@ -4097,6 +4100,7 @@ action:
       - conditions:
           - condition: trigger
             id: right_button_press
+          - "{{ is_state('right_relay_button_control', 'off') }}"
         sequence:
           - service: >-
               {% if right_button_entity is match 'light.' %}
